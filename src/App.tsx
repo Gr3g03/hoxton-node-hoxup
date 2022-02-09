@@ -5,8 +5,19 @@ import Login from './pages/Login'
 import Main from './pages/Main'
 import NotFound from './pages/NotFound'
 
+
 export default function App() {
-  const [currentUser, setCurrentUser] = useState<any | null>(null)
+
+  type CurrentUser = {
+    firstName: string
+    lastName: string
+    phoneNumber: number
+    avatar: string
+    id: number
+  }
+
+
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
   const [modal, setModal] = useState('')
   const [users, setUsers] = useState([])
 
@@ -19,7 +30,7 @@ export default function App() {
   const navigate = useNavigate()
 
   if (currentUser === null) return <h1>Loading User...</h1>
-  function logIn(user: any) {
+  function logIn(user: CurrentUser) {
     // set user in state as the current user
     setCurrentUser(user)
     // navigate to the main page

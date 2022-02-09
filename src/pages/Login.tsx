@@ -1,6 +1,29 @@
 import UserLoginItem from '../components/UserLoginItem'
 
-function Login ({ users, logIn, setModal }) {
+type Users = {
+  firstName: string
+  lastName: string
+  phoneNumber: number
+  avatar: string
+  id: number
+}
+
+type LoginType = {
+  user: Users
+}
+
+type SetModal = {
+  setModal: React.Dispatch<React.SetStateAction<string>>
+}
+
+type Props = {
+  users: Users
+  logIn: LoginType
+  setModal: SetModal
+
+}
+
+function Login({ users, logIn, setModal }: Props) {
   return (
     <div className='main-wrapper login'>
       <section className='login-section'>
