@@ -9,19 +9,17 @@ type Users = {
 }
 
 type LoginType = {
-  user: Users
+  Users: string
 }
 
-type SetModal = {
-  setModal: React.Dispatch<React.SetStateAction<string>>
-}
 
 type Props = {
-  users: Users
+  users: Users[]
   logIn: LoginType
-  setModal: SetModal
+  setModal: React.Dispatch<React.SetStateAction<string>>
 
 }
+
 
 function Login({ users, logIn, setModal }: Props) {
   return (

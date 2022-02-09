@@ -5,8 +5,8 @@ import Login from './pages/Login'
 import Main from './pages/Main'
 import NotFound from './pages/NotFound'
 
-
 export default function App() {
+
 
   type CurrentUser = {
     firstName: string
@@ -16,10 +16,19 @@ export default function App() {
     id: number
   }
 
+  type Usertype = {
+    firstName: string
+    lastName: string
+    phoneNumber: number
+    avatar: string
+    id: number
+  }
+
+
 
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
   const [modal, setModal] = useState('')
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState<Usertype[]>([])
 
   useEffect(() => {
     fetch('http://localhost:4000/users')
@@ -29,8 +38,7 @@ export default function App() {
 
   const navigate = useNavigate()
 
-  if (currentUser === null) return <h1>Loading User...</h1>
-  function logIn(user: CurrentUser) {
+  function logIn(user: Usertype): void {
     // set user in state as the current user
     setCurrentUser(user)
     // navigate to the main page

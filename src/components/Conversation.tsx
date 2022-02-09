@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
+import { Key, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Message from './Message'
 
-function Conversation({ currentUser }) {
-  const [currentConversation, setCurrentConversation] = useState(null)
+function Conversation({ currentUser }: any) {
+  const [currentConversation, setCurrentConversation] = useState<any | null>(null)
 
   const params = useParams()
 
-  function createMessage(text) {
+  function createMessage(text: any) {
     // create a message on the server ✅
 
     fetch('http://localhost:4000/messages', {
@@ -51,7 +51,7 @@ function Conversation({ currentUser }) {
       <header className='panel'></header>
 
       <ul className='conversation__messages'>
-        {currentConversation.messages.map(message => (
+        {currentConversation.messages.map((message: { id: Key | null | undefined; userId: any }) => (
           <Message
             key={message.id}
             message={message}

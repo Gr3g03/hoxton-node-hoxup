@@ -1,7 +1,23 @@
 
+type User = {
+  firstName: string
+  lastName: string
+  phoneNumber: number
+  avatar: string
+  id: number
+}
+
+type LoginType = {
+  User: string
+}
 
 
-function UserLoginItem({ user, logIn }) {
+type props = {
+  login: LoginType
+  user: User
+}
+
+function UserLoginItem({ user, logIn }: props) {
   return (
     <li>
       <button
