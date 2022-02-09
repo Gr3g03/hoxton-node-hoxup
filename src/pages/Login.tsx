@@ -8,14 +8,10 @@ type Users = {
   id: number
 }
 
-type LoginType = {
-  Users: string
-}
-
 
 type Props = {
   users: Users[]
-  logIn: LoginType
+  logIn: (value: Users) => void
   setModal: React.Dispatch<React.SetStateAction<string>>
 
 }

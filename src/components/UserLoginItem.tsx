@@ -7,14 +7,11 @@ type User = {
   id: number
 }
 
-type LoginType = {
-  User: string
-}
 
 
 type props = {
-  login: LoginType
   user: User
+  logIn: (value: User) => void
 }
 
 function UserLoginItem({ user, logIn }: props) {

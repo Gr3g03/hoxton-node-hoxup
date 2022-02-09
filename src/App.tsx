@@ -5,28 +5,20 @@ import Login from './pages/Login'
 import Main from './pages/Main'
 import NotFound from './pages/NotFound'
 
+
+
+export type Usertype = {
+  firstName: string
+  lastName: string
+  phoneNumber: number
+  avatar: string
+  id: number
+}
+
 export default function App() {
 
 
-  type CurrentUser = {
-    firstName: string
-    lastName: string
-    phoneNumber: number
-    avatar: string
-    id: number
-  }
-
-  type Usertype = {
-    firstName: string
-    lastName: string
-    phoneNumber: number
-    avatar: string
-    id: number
-  }
-
-
-
-  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
+  const [currentUser, setCurrentUser] = useState<Usertype | null>(null)
   const [modal, setModal] = useState('')
   const [users, setUsers] = useState<Usertype[]>([])
 
@@ -45,7 +37,7 @@ export default function App() {
     navigate('/logged-in')
   }
 
-  function logOut() {
+  function logOut(): void {
     setCurrentUser(null)
   }
 

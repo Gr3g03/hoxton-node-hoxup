@@ -2,12 +2,46 @@ import { Key, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Message from './Message'
 
-function Conversation({ currentUser }: any) {
-  const [currentConversation, setCurrentConversation] = useState<any | null>(null)
+type Usertype = {
+  firstName: string
+  lastName: string
+  phoneNumber: number
+  avatar: string
+  id: number
+}
+
+
+type props = {
+  currentUser: Usertype
+}
+
+
+type Messages = {
+  userId: number
+  messageText: string,
+  conversationId: number
+  id: number
+}
+
+type ConversationType = {
+  userId: number
+  participantId: number,
+  id: number
+  messages: Messages[]
+}
+
+
+type FormType = HTMLFormElement & {
+  // text: HTMLInputElement
+  reset: () => void
+}
+
+function Conversation({ currentUser }: props) {
+  const [currentConversation, setCurrentConversation] = useState<ConversationType | null>(null)
 
   const params = useParams()
 
-  function createMessage(text: any) {
+  function createMessage(text: Messages): void {
     // create a message on the server ✅
 
     fetch('http://localhost:4000/messages', {
@@ -51,7 +85,7 @@ function Conversation({ currentUser }: any) {
       <header className='panel'></header>
 
       <ul className='conversation__messages'>
-        {currentConversation.messages.map((message: { id: Key | null | undefined; userId: any }) => (
+        {currentConversation.messages.map((message) => (
           <Message
             key={message.id}
             message={message}
@@ -64,10 +98,11 @@ function Conversation({ currentUser }: any) {
       <footer>
         <form
           className='panel conversation__message-box'
-          onSubmit={e => {
-            e.preventDefault()
-            createMessage(e.target.text.value)
-            e.target.reset()
+          onSubmit={(e: React.SyntheticEvent) => {
+            const formEl = e.target as FormType;
+            e.preventDefault();
+            createMessage(formEl.text.value);
+            formEl.text.value = ''
           }}
         >
           <input

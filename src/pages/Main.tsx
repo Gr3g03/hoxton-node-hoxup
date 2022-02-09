@@ -2,8 +2,41 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Conversation from '../components/Conversation'
 
-function Main({ currentUser, logOut, users, setModal, modal }) {
-  const [conversations, setConversations] = useState([])
+
+export type Usertype = {
+  firstName: string
+  lastName: string
+  phoneNumber: number
+  avatar: string
+  id: number
+}
+
+
+type Messages = {
+  userId: number
+  messageText: string,
+  conversationId: number
+  id: number
+}
+
+
+type ConversationType = {
+  id: number
+  userId: number
+  participantId: number,
+  messages: Messages[]
+}
+
+type Props = {
+  users: Usertype[]
+  currentUser: Usertype | null
+  setModal: (value: string) => void
+  modal: string
+  logOut: (value: void) => void
+}
+
+function Main({ currentUser, logOut, users, setModal, modal }: Props) {
+  const [conversations, setConversations] = useState<ConversationType[]>([])
   const params = useParams()
   const navigate = useNavigate()
 
@@ -37,7 +70,9 @@ function Main({ currentUser, logOut, users, setModal, modal }) {
     return true
   })
 
-  function createConversation(participantId) {
+
+  function createConversation(participantId: ConversationType): void {
+    if (currentUser === null) return
     fetch('http://localhost:4000/conversations', {
       method: 'POST',
       headers: {
@@ -106,7 +141,7 @@ function Main({ currentUser, logOut, users, setModal, modal }) {
 
             // what are their details?
             const talkingToUser = users.find(user => user.id === talkingToId)
-
+            if (talkingToUser === undefined) return <h1>Loading</h1>
             return (
               <li key={conversation.id}>
                 <button
