@@ -12,19 +12,10 @@ export type Usertype = {
 }
 
 
-type Messages = {
-  userId: number
-  messageText: string,
-  conversationId: number
-  id: number
-}
-
-
 type ConversationType = {
   id: number
   userId: number
   participantId: number,
-  messages: Messages[]
 }
 
 type Props = {
@@ -71,7 +62,7 @@ function Main({ currentUser, logOut, users, setModal, modal }: Props) {
   })
 
 
-  function createConversation(participantId: ConversationType): void {
+  function createConversation(participantId: number): void {
     if (currentUser === null) return
     fetch('http://localhost:4000/conversations', {
       method: 'POST',
